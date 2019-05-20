@@ -65,6 +65,10 @@ __dynamic_detect-arg_version(){
   __dynamic_detect "${1}" "version"
 }
 
+# commands that use `-V` flag
+__dynamic_detect-V(){
+  __dynamic_detect "${1}" "-V"
+}
 
 ## the main function
 __detect(){
@@ -121,17 +125,14 @@ __detect(){
     hugo)                   __dynamic_detect-arg_version "${command}" ;;
     go)                     __dynamic_detect-arg_version "${command}" ;;
 
+    # commands that need -V flag
+    ab)                     __dynamic_detect-V "${command}" ;;
+
     ## Example of commands that need custom processing
 
     ## TODO cleanup, currently need to add extra space in regex, otherwise the time gets selected
     gulp)
       version=$(gulp --version 2>&1| grep -Eo " ${REGEX_SIMPLE_VERSION}" | head -1)
-      status=$?
-      ;;
-
-    ## ab uses -V flag
-    ab)
-      version=$(ab -V 2>&1 | grep -Eo "${REGEX_SIMPLE_VERSION}" | head -1)
       status=$?
       ;;
 
