@@ -119,13 +119,9 @@ __detect(){
 
     # commands that need version arg
     hugo)                   __dynamic_detect-arg_version "${command}" ;;
+    go)                     __dynamic_detect-arg_version "${command}" ;;
 
     ## Example of commands that need custom processing
-    ## go needs version arg
-    go)
-      version=$(go version 2>&1| grep -Eo "${REGEX_SIMPLE_VERSION}" | head -1)
-      status=$?
-      ;;
 
     ## TODO cleanup, currently need to add extra space in regex, otherwise the time gets selected
     gulp)
